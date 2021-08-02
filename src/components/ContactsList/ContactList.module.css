@@ -1,0 +1,15 @@
+.contsct__list {
+  list-style: none;
+  padding: 0;
+}
+
+.contact__list_el {
+  display: flex;
+  width: 300px;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.contact__list_text {
+  margin: 0;
+}

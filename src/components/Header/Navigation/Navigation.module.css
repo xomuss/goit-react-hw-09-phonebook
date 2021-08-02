@@ -1,0 +1,16 @@
+.list {
+  display: flex;
+  list-style: none;
+  padding: 0;
+}
+
+.item {
+  margin-right: 10px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.item:hover {
+  color: blueviolet;
+}

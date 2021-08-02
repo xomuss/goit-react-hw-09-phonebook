@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  margin-right: 5px;
+}
+
+.name {
+  margin-right: 5px;
+}
+
+.button {
+  background-color: #008cba;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #020cba;
+}
