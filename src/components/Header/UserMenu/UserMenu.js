@@ -5,17 +5,6 @@ import { logOut } from '../../../redux/auth/auth-operations';
 import styles from './UserMenu.module.css';
 import defaultAvatar from '../../../icon/ava.jpg';
 
-// const mapStateToProps = state => ({
-//   name: authSelectors.getUserName(state),
-//   avatar: defaultAvatar,
-// });
-
-// const mapDispatchToProps = {
-//   onLogout: logOut,
-// };
-
-// export default connect(mapStateToProps, mapDispatchToProps)(UserMenue);
-
 export default function UserMenue() {
   const dispatch = useDispatch();
   const onLogout = useCallback(() => dispatch(logOut()), [dispatch]);

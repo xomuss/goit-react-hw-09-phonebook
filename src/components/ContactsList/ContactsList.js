@@ -3,16 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import styles from './ContactList.module.css';
 import { phonebookOperations, phonebookSelectors } from '../../redux/phonebook';
 
-// const mapStateToProps = state => ({
-//   contactsData: phonebookSelectors.getVisibleContacts(state),
-// });
-
-// const mapDispatchToProps = dispatch => ({
-//   onDeleteContact: id => dispatch(phonebookOperations.deleteContact(id)),
-// });
-
-// export default connect(mapStateToProps, mapDispatchToProps)(ContactsList);
-
 export default function ContactsList() {
   const contactsData = useSelector(phonebookSelectors.getVisibleContacts);
   const dispatch = useDispatch();

@@ -1,87 +1,83 @@
-import { Component } from 'react';
-import { connect } from 'react-redux';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import shortid from 'shortid';
 import { register } from '../redux/auth/auth-operations';
 import styles from './RegistrationPage.module.css';
 
-class RegistrationPage extends Component {
-  state = {
-    name: '',
-    email: '',
-    password: '',
-  };
+export default function RegistrationPage() {
+  const dispatch = useDispatch();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  loginInputId = shortid.generate();
-  loginPassword = shortid.generate();
-  loginEmail = shortid.generate();
+  const loginInputId = shortid.generate();
+  const loginPassword = shortid.generate();
+  const loginEmail = shortid.generate();
 
-  handleSubmit = evt => {
+  const handleSubmit = evt => {
     evt.preventDefault();
+    dispatch(register({ name, email, password }));
 
-    this.props.onRegister(this.state);
-
-    this.setState({ name: '', email: '', password: '' });
+    setName('');
+    setEmail('');
+    setPassword('');
   };
 
-  handleChange = evt => {
+  const handleChange = evt => {
     const { name, value } = evt.target;
-    this.setState({ [name]: value });
+    switch (name) {
+      case 'name':
+        setName(value);
+        break;
+      case 'email':
+        setEmail(value);
+        break;
+      case 'password':
+        setPassword(value);
+        break;
+      default:
+        break;
+    }
   };
 
-  render() {
-    return (
-      <form
-        className={styles.form}
-        onSubmit={this.handleSubmit}
-        autoComplete="off"
-      >
-        <label>
-          Username
-          <input
-            className={styles.input}
-            onChange={this.handleChange}
-            type="text"
-            value={this.state.username}
-            name="name"
-            id={this.loginInputId}
-          />
-        </label>
-        <label>
-          Email
-          <input
-            className={styles.input}
-            onChange={this.handleChange}
-            type="email"
-            value={this.state.mail}
-            name="email"
-            id={this.loginEmail}
-          />
-        </label>
-        <label>
-          Password
-          <input
-            className={styles.input}
-            onChange={this.handleChange}
-            type="password"
-            value={this.state.password}
-            name="password"
-            id={this.loginPassword}
-          />
-        </label>
-        <button className={styles.button} type="submit">
-          Submit
-        </button>
-      </form>
-    );
-  }
+  return (
+    <form className={styles.form} onSubmit={handleSubmit} autoComplete="off">
+      <label>
+        Username
+        <input
+          className={styles.input}
+          onChange={handleChange}
+          type="text"
+          value={name}
+          name="name"
+          id={loginInputId}
+        />
+      </label>
+      <label>
+        Email
+        <input
+          className={styles.input}
+          onChange={handleChange}
+          type="email"
+          value={email}
+          name="email"
+          id={loginEmail}
+        />
+      </label>
+      <label>
+        Password
+        <input
+          className={styles.input}
+          onChange={handleChange}
+          type="password"
+          value={password}
+          name="password"
+          id={loginPassword}
+        />
+      </label>
+      <button className={styles.button} type="submit">
+        Submit
+      </button>
+    </form>
+  );
 }
-
-const mapDispatchToProps = {
-  onRegister: register,
-};
-// альтернативная запись
-// const mapDispatchToProps = dispatch => ({
-//   handleSubmit: data => dispatch(register(data)),
-// });
-
-export default connect(null, mapDispatchToProps)(RegistrationPage);

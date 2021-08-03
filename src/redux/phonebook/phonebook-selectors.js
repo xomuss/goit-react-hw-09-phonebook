@@ -30,4 +30,5 @@ export default {
   getLoading,
   getFilter,
   getVisibleContacts,
+  allContacts,
 };

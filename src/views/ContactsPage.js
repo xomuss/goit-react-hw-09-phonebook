@@ -1,37 +1,26 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import Form from '../components/Form';
 import Filter from '../components/Filter';
 import ContactsList from '../components/ContactsList';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { phonebookOperations, phonebookSelectors } from '../redux/phonebook';
 
-class ContactsPage extends Component {
-  state = {};
+export default function ContactsPage() {
+  const dispatch = useDispatch();
+  const isLoadingContacts = useSelector(phonebookSelectors.getLoading);
 
-  componentDidMount() {
-    this.props.fetchContacts();
-  }
+  useEffect(() => {
+    dispatch(phonebookOperations.fetchContacts());
+  }, [dispatch]);
 
-  render() {
-    return (
-      <>
-        <h1>Phone Book</h1>
-        <Form onSubmit={this.formSubmitHandler} />
-        <h2>Contacts</h2>
-        <Filter />
-        {this.props.isLoadingContacts && <h1>download...</h1>}
-        <ContactsList />
-      </>
-    );
-  }
+  return (
+    <>
+      <h1>Phone Book</h1>
+      <Form />
+      <h2>Contacts</h2>
+      <Filter />
+      {isLoadingContacts && <h1>download...</h1>}
+      <ContactsList />
+    </>
+  );
 }
-
-const mapStateToProps = state => ({
-  isLoadingContacts: phonebookSelectors.getLoading(state),
-});
-
-const mapDispatchToProps = dispatch => ({
-  fetchContacts: () => dispatch(phonebookOperations.fetchContacts()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ContactsPage);
