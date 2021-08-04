@@ -1,5 +1,5 @@
 import { Suspense, lazy, useEffect } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header';
 import routs from './routs';
@@ -25,24 +25,26 @@ export default function App() {
       <Header />
       <Suspense fallback={<p>Download...</p>}>
         <Switch>
-          <Route exact path={routs.home} component={HomePage} />
-          <PrivateRoute
-            path={routs.contacts}
-            component={ContactsPage}
-            redirectTo={routs.login}
-          />
+          <PublicRoute exact path={routs.home}>
+            <HomePage />
+          </PublicRoute>
+          <PrivateRoute path={routs.contacts} redirectTo={routs.login}>
+            <ContactsPage />
+          </PrivateRoute>
           <PublicRoute
             path={routs.registration}
-            component={RegistrationPage}
             restricted
             redirectTo={routs.contacts}
-          />
+          >
+            <RegistrationPage />
+          </PublicRoute>
           <PublicRoute
             path={routs.login}
             restricted
-            component={LoginPage}
             redirectTo={routs.contacts}
-          />
+          >
+            <LoginPage />
+          </PublicRoute>
         </Switch>
       </Suspense>
     </div>
